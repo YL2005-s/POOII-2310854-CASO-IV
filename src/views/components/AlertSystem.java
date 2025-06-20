@@ -7,9 +7,14 @@ import java.awt.*;
 
 public class AlertSystem implements Observer {
     private final JLabel label;
+    private String lastAlerts = "";
 
     public AlertSystem(JLabel label) {
         this.label = label;
+    }
+
+    public String getLastAlerts() {
+        return lastAlerts;
     }
 
     @Override
@@ -26,11 +31,13 @@ public class AlertSystem implements Observer {
             alerts.append("⚠ Calidad de aire mala (AQI > 150). ");
         }
 
-        if (alerts.isEmpty()) {
+        lastAlerts = alerts.toString();
+
+        if (lastAlerts.isEmpty()) {
             label.setText("Sin alertas");
             label.setForeground(Color.BLACK);
         } else {
-            label.setText(alerts.toString());
+            label.setText(lastAlerts);
             label.setForeground(Color.RED);
         }
     }
